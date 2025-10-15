@@ -1,0 +1,44 @@
+# IntelliJ IDEA
+.idea/
+*.iml
+
+# Project build output
+/out/
+*/out/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Compiled Java class files
+*.class
+
+# Temporary files
+*.swp
+*.swo
+*.tmp
+
+# IntelliJ-specific workspace files
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/shelf/
+
+# Optional: ignore IDE-specific HTTP requests history
+.idea/httpRequests/
+
+# Optional: ignore user-specific settings (can be useful for teams)
+.idea/.name
+
+# Avoid VCS metadata if mistakenly placed
+*.git/
+
+# Mac .AppleDouble files
+.AppleDouble
+
+# Windows thumbnail cache
+ehthumbs.db
