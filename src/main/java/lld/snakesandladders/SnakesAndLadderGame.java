@@ -1,4 +1,4 @@
-package dll.snakesandladders;
+package lld.snakesandladders;
 
 public class SnakesAndLadderGame {
 }
