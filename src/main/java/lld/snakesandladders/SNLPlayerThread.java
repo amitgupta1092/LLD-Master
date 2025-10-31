@@ -2,6 +2,7 @@ package lld.snakesandladders;
 
 import java.util.concurrent.SynchronousQueue;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 public class SNLPlayerThread implements Runnable {
 
@@ -20,9 +21,16 @@ public class SNLPlayerThread implements Runnable {
     @Override
     public void run() {
 
-        while (playersCoordinator.isGameActive()) {
+        while (playersCoordinator
+                .isGameActive()
+                && !Thread
+                .currentThread()
+                .isInterrupted()) {
             try {
                 playersCoordinator.waitForTurn(username);
+
+                if (!playersCoordinator.isGameActive())
+                    break;
 
                 int diceValue = ThreadLocalRandom
                         .current()
@@ -34,10 +42,11 @@ public class SNLPlayerThread implements Runnable {
                         .diceValue(diceValue)
                         .build();
 
-                playerRollQueue.put(playerRoll);
+                playerRollQueue.offer(playerRoll, 5, TimeUnit.SECONDS);
                 playersCoordinator.completeTurn();
             } catch (InterruptedException e) {
-                throw new RuntimeException(e);
+                Thread.currentThread()
+                        .interrupt();
             }
         }
         System.out.println("player thread " + username + " completed");

@@ -29,7 +29,7 @@ public class SNLController {
 
         List<Runnable> playerThreads = new ArrayList<>();
         for (int i = 1; i <= numberOfPlayers; i++) {
-            Runnable playerThread = new SNLPlayerThread(playersSequence.get(i-1), playerRollQueue, playersCoordinator);
+            Runnable playerThread = new SNLPlayerThread(playersSequence.get(i - 1), playerRollQueue, playersCoordinator);
             playerThreads.add(playerThread);
         }
 
@@ -45,6 +45,8 @@ public class SNLController {
 
             if (!snakesAndLadderGame.isActive()) {
                 playersCoordinator.markGameAsInactive();
+                executorService.shutdownNow();
+                break;
             }
         }
 

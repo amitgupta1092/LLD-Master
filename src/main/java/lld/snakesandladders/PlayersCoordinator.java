@@ -36,16 +36,17 @@ public class PlayersCoordinator {
 
     public synchronized void markGameAsInactive() {
         isGameActive = false;
+        currentPlayerIndex = -1;
         this.notifyAll();
     }
 
     public synchronized void waitForTurn(String username) throws InterruptedException {
-
-        while (!playersSequence
+        if (!isGameActive) return;
+        if (currentPlayerIndex >= 0
+                && playersSequence
                 .get(currentPlayerIndex)
-                .equals(username)) {
-            this.wait();
-        }
+                .equals(username)) return;
+        this.wait();
     }
 
     public synchronized void completeTurn() throws InterruptedException {
